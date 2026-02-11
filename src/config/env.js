@@ -71,6 +71,16 @@ const config = {
     maxRequests: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100', 10),
   },
 
+  // CORS (Add this section)
+  cors: {
+    // If ALLOWED_ORIGINS is set, split by comma. 
+    // Otherwise fallback to FRONTEND_URL. 
+    // Finally fallback to localhost for dev.
+    allowedOrigins: process.env.ALLOWED_ORIGINS 
+      ? process.env.ALLOWED_ORIGINS.split(',') 
+      : [process.env.FRONTEND_URL || 'http://localhost:5173']
+  },
+  
   // Logging
   logging: {
     level: process.env.LOG_LEVEL || 'info',
