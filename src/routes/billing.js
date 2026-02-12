@@ -7,6 +7,9 @@ import billingService from '../services/billingService.js';
 
 const router = express.Router();
 
+// Get frontend URL from environment variable
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+
 /**
  * POST /api/billing/create-checkout-session
  * Create Stripe checkout session
@@ -122,7 +125,7 @@ router.get(
               <h1>Payment Successful!</h1>
               <p>Your payment has been processed successfully.</p>
               <p>The Custom AI Provider feature has been unlocked for your account.</p>
-              <a href="http://localhost:5173?payment_success=true" class="button">Return to Dashboard</a>
+              <a href="${FRONTEND_URL}?payment_success=true" class="button">Return to Dashboard</a>
             </div>
           </body>
         </html>
@@ -185,7 +188,7 @@ router.get('/cancel', (req, res) => {
           <div class="cancel-icon">❌</div>
           <h1>Payment Canceled</h1>
           <p>Your payment was canceled. No charges were made.</p>
-          <a href="http://localhost:5173" class="button">Return to Dashboard</a>
+          <a href="${FRONTEND_URL}" class="button">Return to Dashboard</a>
         </div>
       </body>
     </html>
