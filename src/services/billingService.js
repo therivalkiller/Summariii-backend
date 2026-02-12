@@ -46,7 +46,7 @@ class BillingService {
         await user.update({ stripeCustomerId });
       }
 
-      // Create checkout session - email only, no payment method
+      // Stripe redirects to BACKEND first, then backend redirects to frontend
       const session = await stripe.checkout.sessions.create({
         customer: stripeCustomerId,
         line_items: [
@@ -57,8 +57,8 @@ class BillingService {
         ],
         mode: "subscription",
         payment_method_collection: "if_required",
-        success_url: `${config.frontendUrl}?payment_success=true&session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${config.frontendUrl}?payment_canceled=true`,
+        success_url: `${config.apiBaseUrl}/api/billing/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${config.apiBaseUrl}/api/billing/cancel`,
         metadata: {
           userId: user.id,
           clerkUserId,
