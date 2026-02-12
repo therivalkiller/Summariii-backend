@@ -57,8 +57,8 @@ class BillingService {
         ],
         mode: "subscription",
         payment_method_collection: "if_required",
-        success_url: `${config.apiBaseUrl}/api/billing/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${config.apiBaseUrl}/api/billing/cancel`,
+        success_url: `${config.frontendUrl}?payment_success=true&session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${config.frontendUrl}?payment_canceled=true`,
         metadata: {
           userId: user.id,
           clerkUserId,
